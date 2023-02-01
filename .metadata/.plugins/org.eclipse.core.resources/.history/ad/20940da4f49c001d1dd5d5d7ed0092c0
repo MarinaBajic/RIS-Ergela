@@ -1,0 +1,75 @@
+package com.example.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.demo.repository.ErgelaKorisnikRepository;
+import com.example.demo.repository.ErgelaUlogaRepository;
+import com.example.demo.repository.KonjRepository;
+
+import model.ErgelaKorisnik;
+import model.ErgelaUloga;
+
+@Controller
+@RequestMapping(value="/auth")
+public class LoginKontroler {
+
+	@Autowired
+	ErgelaKorisnikRepository korisnikRepo;
+	
+	@Autowired
+	ErgelaUlogaRepository ulogaRepo;
+	
+	@Autowired
+	KonjRepository konjRepo;
+	
+	@ModelAttribute
+	public void getUloge(Model model) {
+		List<ErgelaUloga> uloge = ulogaRepo.findAll();
+		model.addAttribute("uloge", uloge);
+	}
+	
+	@GetMapping(value = "/loginPage")
+    public String loginPage() {    
+    	return "login";
+    }
+	
+	@PostMapping(value = "/login")
+    public String loginHello() {    
+    	return "home";
+    }
+	
+	@GetMapping(value = "/registerUser")
+	public String newUser(Model model) {
+		ErgelaKorisnik korisnik = new ErgelaKorisnik();
+		model.addAttribute("korisnik", korisnik);
+		return "register";
+	}
+ 
+	@PostMapping(value = "/register")
+	public String saveUser(@ModelAttribute("korisnik") ErgelaKorisnik korisnik) {
+    	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    	korisnik.setLozinka(passwordEncoder.encode(korisnik.getLozinka()));
+		
+		for (ErgelaUloga uloga : korisnik.getUlogas()) {
+			uloga.addKorisnik(korisnik);
+			
+		}
+    	korisnikRepo.save(korisnik);
+		return "login";
+	}
+	
+	@GetMapping(value="/home")
+    public String getPocetna (){
+       
+        return "pocetna";
+    }
+}

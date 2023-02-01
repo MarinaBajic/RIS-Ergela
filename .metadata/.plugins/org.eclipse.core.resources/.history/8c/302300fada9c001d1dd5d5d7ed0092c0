@@ -1,0 +1,135 @@
+package com.example.demo.controller;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.demo.repository.JahacRepository;
+import com.example.demo.repository.KonjRepository;
+import com.example.demo.repository.TreningRepository;
+
+import model.Jahac;
+import model.Konj;
+import model.Trening;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
+@Controller
+@RequestMapping(value = "/treninzi")
+public class TreningKontroler {
+
+	@Autowired
+	TreningRepository treningRepo;
+
+	@Autowired
+	JahacRepository jahacRepo;
+
+	@Autowired
+	KonjRepository konjRepo;
+
+	@GetMapping(value = "/getSviTreninzi")
+	public String getSviTreninzi(HttpServletRequest request) {
+		List<Trening> treninzi = treningRepo.findAll();
+		request.getSession().setAttribute("treninzi", treninzi);
+		return "prikaz/PrikazSvihTreninga";
+	}
+
+	@GetMapping(value = "/getTrening")
+	public String getTrening(Date datum, String imePrezime, String nadimak, HttpServletRequest request) {
+		List<Trening> treninzi = null;
+
+		String[] imeIPrezime = imePrezime.trim().split(" ");
+		Jahac jahac = jahacRepo.findByImeAndPrezime(imeIPrezime[0], imeIPrezime[1]);
+		Konj konj = konjRepo.findByNadimak(nadimak);
+
+		treninzi = treningRepo.findAllByDatumAndJahacAndKonj(datum, jahac, konj);
+
+		request.getSession().setAttribute("treninzi", treninzi);
+		return "pretraga/PronadjiTreningPoDatumu";
+	}
+
+	@GetMapping(value = "/getSviJahaciAndKonji")
+	public String getSviJahaciAndKonji(HttpServletRequest request) {
+		List<Jahac> jahaci = jahacRepo.findAll();
+		List<Konj> konji = konjRepo.findAll();
+
+		request.getSession().setAttribute("jahaci", jahaci);
+		request.getSession().setAttribute("konji", konji);
+
+		return "unos/UnosTreninga";
+	}
+
+	@PostMapping(value = "/unesiTrening")
+	public String unesiTrening(Integer idJahac, Integer idKonj, Date datum, String vreme, HttpServletRequest request) {
+		Jahac jahac = jahacRepo.findById(idJahac).get();
+		Konj konj = konjRepo.findById(idKonj).get();
+
+		if (!konjJeSlobodan(konj, datum, vreme)) {
+			request.setAttribute("poruka", "Konj je zauzet u to vreme. Nije moguce zakazazti trening!");
+		}
+
+		Trening t = new Trening();
+		t.setJahac(jahac);
+		t.setKonj(konj);
+		t.setDatum(datum);
+		t.setVreme(vreme);
+
+		Trening trening = treningRepo.save(t);
+		request.setAttribute("trening", trening);
+		return "unos/UnosTreninga";
+	}
+
+	private boolean konjJeSlobodan(Konj konj, Date datum, String vreme) {
+		List<Trening> treninzi = treningRepo.findAll();
+		for (Trening t : treninzi)
+			if (t.getKonj().equals(konj) && t.getDatum().equals(datum) && t.getVreme().equals(vreme))
+				return false;
+		return true;
+	}
+
+	@GetMapping(value = "/generisiIzvestaj")
+	public void generisiIzvestaj(HttpServletResponse response) throws JRException, IOException {
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(treningRepo.findAll());
+
+		InputStream inStream = getClass().getResourceAsStream("/jasperreports/TreningIzvestaj.jrxml.jrxml");
+		JasperReport jasperReport = JasperCompileManager.compileReport(inStream);
+
+		Map<String, Object> parameters = new HashMap<>();
+//		parameters.put("title", "Employee Report");
+//		parameters.put("minSalary", 15000.0);
+//		parameters.put("condition", " LAST_NAME ='Smith' ORDER BY FIRST_NAME");
+		
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+		
+		response.setHeader("Content-Disposition", "attachment; filename=TreningIzvestaj.pdf");
+		
+		inStream.close();
+	}
+
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(true);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
+}

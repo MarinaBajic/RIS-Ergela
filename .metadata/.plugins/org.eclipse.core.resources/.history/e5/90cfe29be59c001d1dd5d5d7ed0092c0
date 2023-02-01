@@ -1,0 +1,59 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+</head>
+<body>
+
+	<c:url var="loginUrl" value="/login" />
+	<c:if test="${not empty param.error}">
+		<div class="alert alert-danger">
+			<p>Pogresni podaci.</p>
+		</div>
+	</c:if>
+	<form action="${loginUrl}" method="post">
+		<table>
+			<tr>
+				<td>Ime</td>
+				<td><input type="text" name="ime"
+					placeholder="Unesite ime" required></td>
+			</tr>
+			<tr>
+				<td>Prezime</td>
+				<td><input type="text" name="prezime"
+					placeholder="Unesite prezime" required></td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td><input type="text" name="email"
+					placeholder="Unesite email"></td>
+			</tr>
+			<tr>
+				<td>Korisnicko ime</td>
+				<td><input type="text" name="korisnickoIme"
+					placeholder="Unesite korisnicko ime" required></td>
+			</tr>
+			<tr>
+				<td>Sifra</td>
+				<td><input type="password" name="lozinka"
+					placeholder="Unesite sifru" required></td>
+			</tr>
+			 <tr>
+                <td>Zapamti me:</td>
+                <td><input type="checkbox" name="remember-me" /></td>
+            </tr>
+		</table><br/><br/>
+		Nemate nalog? <a href="/Library/auth/registerUser">Registrujte se</a>
+	</form>
+
+</body>
+</html>

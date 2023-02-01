@@ -1,0 +1,29 @@
+package com.example.demo.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.demo.repository.TreningRepository;
+
+import model.Trener;
+
+@Controller
+@RequestMapping(value="/admin")
+public class AdminKontroler {
+
+	@Autowired
+	TreningRepository treningRepo;
+	
+	@GetMapping(value="/getSviTreneri")
+	public String getSviTreneri(HttpServletRequest request) {
+		List<Trener> treneri = trenerRepo.findAll();
+		request.getSession().setAttribute("treneri", treneri);
+		return "unos/UnosJahaca";
+	}
+}

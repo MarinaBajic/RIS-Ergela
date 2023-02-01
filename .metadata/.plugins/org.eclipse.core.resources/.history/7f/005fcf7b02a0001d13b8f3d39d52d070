@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Unos treninga</title>
+</head>
+<body>
+
+	<form action="/ergela/jahaci/unesiTrening" method="post">
+		<security:authentication property="principal.username" />
+	
+		<c:if test="${!empty jahac}">
+			Unos treninga za jahaca: ${j.ime} ${j.prezime}
+		</c:if>
+		<br>
+		<c:if test="${!empty konji}">
+			<select name="idKonj">
+				<c:forEach var="k" items="${konji}">
+					<option value="${k.idKonj}">${k.punoIme}, ${k.nadimak}</option>
+				</c:forEach>
+			</select>
+		</c:if>
+		<br>
+		Unesite datum:
+		<input type="date" name="datum"><br>
+		
+		Unesite vreme treninga:
+		<input type="text" placeholder="Vreme treninga" name="vreme"><br>
+		
+		<input type="submit" value="Sačuvaj">
+	</form>
+	
+	<c:if test="${!empty trening}">
+		Trening je uspesno sacuvan!<br>
+		${trening.jahac.ime} ${trening.jahac.prezime}, ${trening.datum}
+	</c:if>
+	<c:if test="${!empty poruka}">${poruka}</c:if>
+
+</body>
+</html>

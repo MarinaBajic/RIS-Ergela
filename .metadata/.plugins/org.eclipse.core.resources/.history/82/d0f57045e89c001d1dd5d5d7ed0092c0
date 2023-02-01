@@ -1,0 +1,31 @@
+package com.example.demo.security;
+
+import org.springframework.core.convert.converter.Converter;
+
+import com.example.demo.repository.ErgelaUlogaRepository;
+
+import model.ErgelaUloga;
+
+public class UlogaKonverter implements Converter<String, ErgelaUloga> {
+
+	ErgelaUlogaRepository ulogaRepo;
+	
+	public UlogaKonverter(ErgelaUlogaRepository ulogaRepo) {
+		this.ulogaRepo = ulogaRepo;
+	}
+
+	@Override
+	public ErgelaUloga convert(String source) {
+		int idUloga = -1;
+		try {
+			idUloga = Integer.parseInt(source);
+			
+		} catch (NumberFormatException e) {
+			throw new ConversionFailedException(TypeDescriptor.valueOf(String.class),
+					TypeDescriptor.valueOf(BibliotekaUloga.class), idRole, null);
+		}
+		BibliotekaUloga role = r.getById(idRole);
+		return role;
+	}
+
+}

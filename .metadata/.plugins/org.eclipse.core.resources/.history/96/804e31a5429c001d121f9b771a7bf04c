@@ -1,0 +1,56 @@
+package com.example.demo.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.demo.repository.KonjRepository;
+import com.example.demo.repository.RasaRepository;
+
+import model.Konj;
+import model.Rasa;
+
+@Controller
+@RequestMapping(value="konji")
+public class KonjKontroler {
+
+	@Autowired
+	KonjRepository konjRepo;
+	
+	@Autowired
+	RasaRepository rasaRepo;
+	
+	@GetMapping(value="/getSviKonji")
+	public String getSviKonji(HttpServletRequest request) {
+		List<Konj> konji = konjRepo.findAll();
+		request.getSession().setAttribute("konji", konji);
+		return "prikaz/PrikazSvihKonja";
+	}
+	
+	@GetMapping(value="/pronadjiKonjaNadimak")
+	public String pronadjiKonjaNadimak(String nadimak, HttpServletRequest request) {
+		Konj konj = konjRepo.findByNadimak(nadimak);
+		request.getSession().setAttribute("konj", konj);
+		return "pretraga/PronadjiKonjaPoNadimku";
+	}
+	
+	@GetMapping(value="/pronadjiKonjeRasa")
+	public String pronadjiKonjeRasa(String nazivRase, HttpServletRequest request) {
+		Rasa rasa = rasaRepo.findByNaziv(nazivRase);
+		List<Konj> konji = konjRepo.findByRasa(rasa);
+		request.getSession().setAttribute("konji", konji);
+		return "pretraga/PronadjiKonjePoRasi";
+	}
+	
+	@GetMapping(value="/getSveRase")
+	public String getSveRase(HttpServletRequest request) {
+		List<Rasa> rase = rasaRepo.findAll();
+		request.getSession().setAttribute("rase", rase);
+		return "unos/UnosKonja";
+	}
+}

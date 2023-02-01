@@ -1,0 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pocetna stranica</title>
+</head>
+<body>
+
+	<a href="/ergela/nereg/getSviKonji">Prikaz svih konja</a><br>
+	<a href="/ergela/nereg/pronadjiKonjaNadimak">Pronadji konja po imenu</a><br>
+	<a href="/ergela/pretraga/PronadjiKonjePoRasi.jsp">Pronadji konje po rasi</a><br><br>
+	
+	Dobrodosli na portal ergele. <br/><br/>
+	Kako biste nastavili sa radom, molimo prijavite se klikom na
+	<a href="/ergela/auth/loginPage">Link</a>
+	
+</body>
+</html>

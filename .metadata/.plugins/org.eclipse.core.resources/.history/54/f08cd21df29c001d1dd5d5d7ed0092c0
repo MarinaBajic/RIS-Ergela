@@ -1,0 +1,16 @@
+package com.example.demo.security;
+
+@Configuration
+@EnableWebSecurity
+public class SecSecurityConfig {
+
+    @Bean
+    public InMemoryUserDetailsManager userDetailsService() {
+        // InMemoryUserDetailsManager (see below)
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // http builder configurations for authorize requests and form login (see below)
+    }
+}
