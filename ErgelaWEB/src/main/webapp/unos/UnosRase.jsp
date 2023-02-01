@@ -12,19 +12,20 @@
 
 	<form action="/ergela/admin/unesiRasu" method="post">
 		Unesite naziv:
-		<input type="text" placeholder="Naziv rase" name="naziv"><br>
+		<input type="text" placeholder="Naziv rase" name="naziv" required><br>
 		
 		Unesite boju:
-		<input type="text" placeholder="Boja rase" name="boja"><br>
+		<input type="text" placeholder="Boja rase" name="boja" required><br>
 		
 		<input type="submit" value="Sačuvaj">
 	</form>
 	
-	<c:if test="${!empty rasa}">
+	<c:if test="${!empty rasaUnos}">
 		Rasa je uspesno sacuvana!<br>
-		${rasa.naziv}, ${rasa.boja}
+		${rasaUnos.naziv}, ${rasaUnos.boja}
 	</c:if>
-	<c:if test="${empty rasa}">fak</c:if>
+	
+	<c:if test="${!empty porukaUnosRase}">${porukaUnosRase}</c:if>
 	
 	<br>
 	<form action="/ergela/auth/index" method="get">

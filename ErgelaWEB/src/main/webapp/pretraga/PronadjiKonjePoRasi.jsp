@@ -12,7 +12,7 @@
 
 	<form action="/ergela/nereg/findKonjeRasa" method="get">
 		Unesite rasu:
-		<input type="text" placeholder="Rasa" name="nazivRase">
+		<input type="text" placeholder="Rasa" name="nazivRase" required>
 		<input type="submit" value="Prikazi">
 	</form>
 	

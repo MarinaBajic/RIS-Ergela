@@ -71,19 +71,24 @@ public class JahacKontroler {
 		
 		Konj konj = konjRepo.findById(idKonj).get();
 
+		String porukaUnosTreninga = null;
 		if (!konjJeSlobodan(konj, datum, vreme)) {
-			request.setAttribute("porukaUnosTreninga", "Konj je zauzet u to vreme. Nije moguce zakazati trening!");
+			porukaUnosTreninga = "Konj je zauzet u to vreme. Nije moguce zakazati trening!";
 		} 
 		else {
 			Trening t = new Trening();
+			t.setJahac(jahac);
+			t.setKonj(konj);
 			t.setDatum(datum);
 			t.setVreme(vreme);
-			jahac.addTrening(t);
-			konj.addTrening(t);
 
 			Trening trening = treningRepo.save(t);
-			request.setAttribute("trening", trening);
+			if (trening == null)
+				porukaUnosTreninga = "Greška prilikom čuvanja treninga u bazu!";
+			else
+				request.setAttribute("trening", trening);
 		}
+		request.setAttribute("porukaUnosTreninga", porukaUnosTreninga);
 
 		return "unos/UnosTreninga";
 	}
@@ -119,7 +124,7 @@ public class JahacKontroler {
 		for(Omiljeni o : jahac.getOmiljenis()) {
 			if (o.getJahac().equals(jahac) && o.getKonj().equals(konj)) {
 				vecDodat = true;
-				porukaOmiljeni = "Konj je vec u omiljenima!";
+				porukaOmiljeni = konj.getNadimak() + " je vec u omiljenima!";
 			}
 		}
 		
@@ -130,7 +135,7 @@ public class JahacKontroler {
 			
 			Omiljeni omiljeni = omiljeniRepo.save(o);
 			if (omiljeni != null)
-				porukaOmiljeni = "Konj uspesno dodat u omiljene!";
+				porukaOmiljeni = konj.getNadimak() + " je uspesno dodat u omiljene!";
 		}
 		request.setAttribute("porukaOmiljeni", porukaOmiljeni);
 		
@@ -145,7 +150,23 @@ public class JahacKontroler {
 		if (omiljeni == null || omiljeni.isEmpty())
 			request.setAttribute("porukaPrikazOmiljeni", "Nema omiljenih konja za prikaz!");
 		
-		request.setAttribute("omiljeni", omiljeni);
+		request.getSession().setAttribute("omiljeni", omiljeni);
+		return "prikaz/OmiljeniKonji";
+	}
+	
+	@GetMapping("/obrisiOmiljenogKonja")
+	public String obrisiOmiljenogKonja(Integer idOmiljeni, HttpServletRequest request) {
+		Omiljeni omiljeni = omiljeniRepo.findById(idOmiljeni).get();
+		omiljeniRepo.delete(omiljeni);
+		
+		String porukaOmiljeniKonjObrisan = "";
+		if (omiljeniRepo.findById(idOmiljeni).isEmpty())
+			porukaOmiljeniKonjObrisan = "Omiljeni konj je uspesno obrisan";
+		else
+			porukaOmiljeniKonjObrisan = "Greska tokom brisanja omiljenog konja!";
+	
+		request.setAttribute("porukaOmiljeniKonjObrisan", porukaOmiljeniKonjObrisan);
+		
 		return "prikaz/OmiljeniKonji";
 	}
 	

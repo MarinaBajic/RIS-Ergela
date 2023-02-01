@@ -32,7 +32,7 @@ import model.ErgelaUloga;
 import model.Jahac;
 
 @Controller
-@RequestMapping(value = "/auth")
+@RequestMapping("/auth")
 public class LoginKontroler {
 
 	@Autowired
@@ -56,24 +56,24 @@ public class LoginKontroler {
 		model.addAttribute("uloge", uloge);
 	}
 
-	@GetMapping(value = "/loginPage")
+	@GetMapping("/loginPage")
 	public String loginPage() {
 		return "login";
 	}
 
-	@PostMapping(value = "/login")
+	@PostMapping("/login")
 	public String loginHello() {
 		return "index";
 	}
 
-	@GetMapping(value = "/registerUser")
+	@GetMapping("/registerUser")
 	public String newUser(Model model) {
 		ErgelaKorisnik korisnik = new ErgelaKorisnik();
 		model.addAttribute("korisnik", korisnik);
 		return "register";
 	}
 
-	@PostMapping(value = "/register")
+	@PostMapping("/register")
 	public String saveUser(@ModelAttribute("korisnik") ErgelaKorisnik korisnik, HttpServletRequest request) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		korisnik.setLozinka(passwordEncoder.encode(korisnik.getLozinka()));
@@ -99,7 +99,7 @@ public class LoginKontroler {
 		return "login";
 	}
 
-	@GetMapping(value = "/logout")
+	@GetMapping("/logout")
 	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null) {
@@ -111,6 +111,11 @@ public class LoginKontroler {
 	@GetMapping("/index")
 	public String getPocetna() {
 		return "index";
+	}
+	
+	@GetMapping("/error")
+	public String getError() {
+		return "error";
 	}
 	
 	@InitBinder

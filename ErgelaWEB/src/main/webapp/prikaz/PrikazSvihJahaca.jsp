@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	<c:if test="${!empty jahaci}">
+	<c:if test="${!empty sviJahaci}">
 		<table border="1">
 			<tr>
 				<th>Ime</th>
@@ -19,7 +19,7 @@
 				<th>Adresa</th>
 				<th>Datum upisa</th>
 			</tr>
-			<c:forEach var="j" items="${jahaci}">
+			<c:forEach var="j" items="${sviJahaci}">
 				<tr>
 					<td>${j.ime}</td>
 					<td>${j.prezime}</td>
@@ -30,7 +30,8 @@
 			</c:forEach>
 		</table>
 	</c:if>
-	<c:if test="${empty jahaci }">fak</c:if>
+	
+	<c:if test="${!empty porukaSviJahaci}">${porukaSviJahaci}</c:if>
 	
 	<br>
 	<form action="/ergela/auth/index" method="get">

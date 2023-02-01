@@ -61,7 +61,7 @@ public class AdminKontroler {
 	@GetMapping("/getSviTreneri")
 	public String getSviTreneri(HttpServletRequest request) {
 		List<Trener> treneri = trenerRepo.findAll();
-		request.getSession().setAttribute("treneri", treneri);
+		request.setAttribute("sviTreneri", treneri);
 		return "unos/UnosJahaca";
 	}
 	
@@ -78,14 +78,19 @@ public class AdminKontroler {
 		j.setTrener(trener);
 		
 		Jahac jahac = jahacRepo.save(j);
-		request.setAttribute("jahac", jahac);
+		
+		if (jahac == null)
+			request.setAttribute("porukaUnosJahaca", "Greska prilikom unosa jahaca!");
+		else
+			request.setAttribute("jahacUnos", jahac);
+		
 		return "unos/UnosJahaca";
 	}
 	
 	@GetMapping("/getSveRase")
 	public String getSveRase(HttpServletRequest request) {
 		List<Rasa> rase = rasaRepo.findAll();
-		request.getSession().setAttribute("rase", rase);
+		request.setAttribute("sveRase", rase);
 		return "unos/UnosKonja";
 	}
 	
@@ -101,7 +106,12 @@ public class AdminKontroler {
 		k.setRasa(rasa);
 		
 		Konj konj = konjRepo.save(k);
-		request.setAttribute("konj", konj);
+		
+		if (konj == null)
+			request.setAttribute("porukaUnosKonja", "Greska prilikom unosa konja!");
+		else
+			request.setAttribute("konjUnos", konj);
+		
 		return "unos/UnosKonja";
 	}
 	
@@ -117,7 +127,12 @@ public class AdminKontroler {
 		r.setBoja(boja);
 		
 		Rasa rasa = rasaRepo.save(r);
-		request.setAttribute("rasa", rasa);
+		
+		if (rasa == null)
+			request.setAttribute("porukaUnosRase", "Greska prilikom unosa rase!");
+		else
+			request.setAttribute("rasaUnos", rasa);
+		
 		return "unos/UnosRase";
 	}
 	
@@ -134,8 +149,37 @@ public class AdminKontroler {
 		t.setGodIskustva(godIskustva);
 		
 		Trener trener = trenerRepo.save(t);
-		request.setAttribute("trener", trener);
+		
+		if (trener == null)
+			request.setAttribute("porukaUnosTrenera", "Greska prilikom unosa trenera!");
+		else
+			request.setAttribute("trenerUnos", trener);
+		
 		return "unos/UnosTrenera";
+	}
+	
+	@GetMapping("/promeniNadimakKonju")
+	public String promeniNadimakKonju(Integer idKonj, HttpServletRequest request) {
+		Konj konj = konjRepo.findById(idKonj).get();
+		request.getSession().setAttribute("konjUpdate", konj);
+		return "promena/PromenaNadimkaKonju";
+	}
+	
+	@PostMapping("/updateKonjNadimak")
+	public String updateKonjNadimak(String nadimak, HttpServletRequest request) {
+		Konj k = (Konj) request.getSession().getAttribute("konjUpdate");
+		k.setNadimak(nadimak);
+		
+		String porukaKonjUpdate = null;
+		Konj konj = konjRepo.save(k);
+		if (konj.getNadimak().equals(nadimak))
+			porukaKonjUpdate = "Nadimak za konja " + konj.getPunoIme() + " je uspesno promenjen u " + konj.getNadimak() + "!";
+		else
+			porukaKonjUpdate = "Došlo je do greške prilikom promene nadimka!";
+		
+		request.setAttribute("porukaKonjUpdate", porukaKonjUpdate);
+		
+		return "promena/PromenaNadimkaKonju";
 	}
 	
 	@GetMapping("/izvestajSviTreninzi")
@@ -160,7 +204,12 @@ public class AdminKontroler {
 	@GetMapping("/izvestajTreninziZaJahaca")
 	public String izvestajTreninziZaJahaca(HttpServletRequest request) {
 		List<Jahac> jahaci = jahacRepo.findAll();
-		request.getSession().setAttribute("jahaci", jahaci);
+		
+		if (jahaci == null || jahaci.isEmpty())
+			request.setAttribute("porukaIzvestaj", "Nema jahaca u bazi!");
+		else
+			request.setAttribute("sviJahaci", jahaci);
+		
 		return "izvestaji/OdabirJahacaZaIzvestaj";
 	}
 	

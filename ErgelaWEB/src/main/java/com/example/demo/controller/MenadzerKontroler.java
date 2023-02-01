@@ -1,13 +1,17 @@
 package com.example.demo.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.repository.JahacRepository;
@@ -34,21 +38,24 @@ public class MenadzerKontroler {
 	@GetMapping("/getSviJahaci")
 	public String getSviJahaci(HttpServletRequest request) {
 		List<Jahac> jahaci = jahacRepo.findAll();
-		request.getSession().setAttribute("jahaci", jahaci);
+		
+		if (jahaci == null || jahaci.isEmpty())
+			request.setAttribute("porukaSviJahaci", "Nema jahaca za prikaz!");
+		else
+			request.setAttribute("sviJahaci", jahaci);
+		
 		return "prikaz/PrikazSvihJahaca";
-	}
-	
-	@GetMapping("/getSviKonji")
-	public String getSviKonji(HttpServletRequest request) {
-		List<Konj> konji = konjRepo.findAll();
-		request.getSession().setAttribute("konji", konji);
-		return "prikaz/PrikazSvihKonja";
 	}
 	
 	@GetMapping("/getSviTreninzi")
 	public String getSviTreninzi(HttpServletRequest request) {
 		List<Trening> treninzi = treningRepo.findAll();
-		request.setAttribute("treninzi", treninzi);
+		
+		if (treninzi == null || treninzi.isEmpty())
+			request.setAttribute("porukaSviTreninzi", "Nema treninga za prikaz!");
+		else
+			request.setAttribute("sviTreninzi", treninzi);
+		
 		return "prikaz/PrikazSvihTreninga";
 	}
 	
@@ -60,7 +67,12 @@ public class MenadzerKontroler {
 	@GetMapping("/getJahacIme")
 	public String getJahacIme(String ime, String prezime, HttpServletRequest request) {
 		Jahac jahac = jahacRepo.findByImeAndPrezime(ime, prezime);
-		request.setAttribute("jahac", jahac);
+		
+		if (jahac == null)
+			request.setAttribute("porukaNijeNadjenJahac", "Nije pronadjen jahac sa tim imenom i prezimenom!");
+		else
+			request.setAttribute("jahacIme", jahac);
+		
 		return "pretraga/PronadjiJahacaPoImenu";
 	}
 	
@@ -73,14 +85,32 @@ public class MenadzerKontroler {
 	public String getTrening(Date datum, String imePrezime, String nadimak, HttpServletRequest request) {
 		List<Trening> treninzi = null;
 
+		String porukaPretragaTreninga = null;
+		
 		String[] imeIPrezime = imePrezime.trim().split(" ");
-		Jahac jahac = jahacRepo.findByImeAndPrezime(imeIPrezime[0], imeIPrezime[1]);
-		Konj konj = konjRepo.findByNadimak(nadimak);
+		if (imeIPrezime.length < 2)
+			porukaPretragaTreninga = "Molim Vas unesite i ime i prezime jahača!";
+		
+		else {
+			Jahac jahac = jahacRepo.findByImeAndPrezime(imeIPrezime[0], imeIPrezime[1]);
+			Konj konj = konjRepo.findByNadimak(nadimak);
+			
+			if (jahac == null)
+				porukaPretragaTreninga = "Ne postoji jahac sa tim imenom i prezimenom!";
+			if (konj == null)
+				porukaPretragaTreninga = "Ne postoji konj sa tim nadimkom!";
+			else {
+				treninzi = treningRepo.findAllByDatumAndJahacAndKonj(datum, jahac, konj);
+				
+				if (treninzi == null || treninzi.isEmpty())
+					porukaPretragaTreninga = "Nije pronadjen nijedan trening!";
+				else
+					request.setAttribute("treninziPretraga", treninzi);
+			}
+		}
+		request.setAttribute("porukaPretragaTreninga", porukaPretragaTreninga);
 
-		treninzi = treningRepo.findAllByDatumAndJahacAndKonj(datum, jahac, konj);
-
-		request.getSession().setAttribute("treninzi", treninzi);
-		return "pretraga/PronadjiTreningPoDatumu";
+		return "pretraga/PronadjiTrening";
 	}
 	
 	@GetMapping("/getJahaciAndKonji")
@@ -88,8 +118,8 @@ public class MenadzerKontroler {
 		List<Jahac> jahaci = jahacRepo.findAll();
 		List<Konj> konji = konjRepo.findAll();
 
-		request.setAttribute("jahaci", jahaci);
-		request.getSession().setAttribute("konji", konji);
+		request.getSession().setAttribute("sviJahaci", jahaci);
+		request.getSession().setAttribute("sviKonji", konji);
 
 		return "unos/UnosTreninga";
 	}
@@ -108,5 +138,12 @@ public class MenadzerKontroler {
 		request.setAttribute("porukaTreningObrisan", porukaTreningObrisan);
 		
 		return "prikaz/PrikazSvihTreninga";
+	}
+	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(true);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 }

@@ -17,11 +17,11 @@
 		<table>
 			<tr>
 				<td>Ime:</td>
-				<td><sf:input path="ime" /></td>
+				<td><sf:input path="ime" required="true"/></td>
 			</tr>
 			<tr>
 				<td>Prezime:</td>
-				<td><sf:input path="prezime" /></td>
+				<td><sf:input path="prezime" required="true"/></td>
 			</tr>
 			<tr>
 				<td>Email</td>
@@ -34,16 +34,16 @@
 			</tr>
 			<tr>
 				<td>Korisnicko ime:</td>
-				<td><sf:input path="korisnickoIme" /></td>
+				<td><sf:input path="korisnickoIme" required="true"/></td>
 			</tr>
 			<tr>
 				<td>Lozinka:</td>
-				<td><sf:password path="lozinka" /></td>
+				<td><sf:password path="lozinka" required="true"/></td>
 			</tr>
 			<tr>
 				<td>Uloga</td>
 				<td><sf:select path="ulogas" items="${uloge}"
-						itemValue="idUloga" itemLabel="naziv" /></td>
+						itemValue="idUloga" itemLabel="naziv" required="true"/></td>
 			</tr>
 			<tr>
 				<td />

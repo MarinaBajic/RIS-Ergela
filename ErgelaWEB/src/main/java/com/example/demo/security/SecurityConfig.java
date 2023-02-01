@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf()
         .disable().authorizeRequests()
 	    .antMatchers("/auth/**", "/login/**", "/nereg/**").permitAll()
-	    .antMatchers("/jahaci/**").hasAnyRole("JAHAC", "ADMIN")
+	    .antMatchers("/jahaci/**").hasAnyRole("JAHAC", "MENADZER", "ADMIN")
 	    .antMatchers("/menadzeri/**").hasAnyRole("MENADZER", "ADMIN")
 	    .antMatchers("/admin/**").hasRole("ADMIN")
         .and()
@@ -39,9 +39,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .usernameParameter("korisnickoIme")
         .passwordParameter("lozinka")
         .defaultSuccessUrl("/auth/index");
-//        .and()
-//        .logout()
-//        .logoutSuccessUrl("/")
-	    
 	}
 }

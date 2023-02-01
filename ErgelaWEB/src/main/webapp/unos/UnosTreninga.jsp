@@ -18,9 +18,9 @@
 			</c:if>
 		</security:authorize>
 		<security:authorize access="hasAnyRole('MENADZER', 'ADMIN')">
-			<c:if test="${!empty jahaci}">
-				<select name="idJahac">
-					<c:forEach var="j" items="${jahaci}">
+			<c:if test="${!empty sviJahaci}">
+				<select name="idJahac" required>
+					<c:forEach var="j" items="${sviJahaci}">
 						<option value="${j.idJahac}">${j.ime} ${j.prezime}</option>
 					</c:forEach>
 				</select>
@@ -28,7 +28,7 @@
 		</security:authorize>
 		<br>
 		<c:if test="${!empty sviKonji}">
-			<select name="idKonj">
+			<select name="idKonj" required>
 				<c:forEach var="k" items="${sviKonji}">
 					<option value="${k.idKonj}">${k.punoIme}, ${k.nadimak}</option>
 				</c:forEach>
@@ -36,10 +36,10 @@
 		</c:if>
 		<br>
 		Unesite datum:
-		<input type="date" name="datum"><br>
+		<input type="date" name="datum" required><br>
 		
 		Unesite vreme treninga:
-		<input type="text" placeholder="Vreme treninga" name="vreme"><br>
+		<input type="text" placeholder="Vreme treninga" name="vreme" required><br>
 		
 		<input type="submit" value="Sačuvaj">
 	</form>

@@ -12,10 +12,10 @@
 
 	<form action="/ergela/admin/unesiJahaca" method="post">
 		Unesite ime:
-		<input type="text" placeholder="Ime" name="ime"><br>
+		<input type="text" placeholder="Ime" name="ime" required><br>
 		
 		Unesite prezime:
-		<input type="text" placeholder="Prezime" name="prezime"><br>
+		<input type="text" placeholder="Prezime" name="prezime" required><br>
 		
 		Unesite adresu:
 		<input type="text" placeholder="Adresa" name="adresa"><br>
@@ -23,9 +23,9 @@
 		Unesite datum rođenja:
 		<input type="date" name="datumRodjenja"><br>
 		
-		<c:if test="${!empty treneri}">
-			<select name="idTrener">
-				<c:forEach var="t" items="${treneri}">
+		<c:if test="${!empty sviTreneri}">
+			<select name="idTrener" required>
+				<c:forEach var="t" items="${sviTreneri}">
 					<option value="${t.idTrener}">${t.ime} ${t.prezime}</option>
 				</c:forEach>
 			</select>
@@ -34,11 +34,11 @@
 		<input type="submit" value="Sačuvaj">
 	</form>
 	
-	<c:if test="${!empty jahac}">
+	<c:if test="${!empty jahacUnos}">
 		Jahac je uspesno sacuvan!<br>
-		${jahac.ime} ${jahac.prezime}, ${jahac.datumRodjenja}
+		${jahacUnos.ime} ${jahacUnos.prezime}, ${jahacUnos.datumRodjenja}
 	</c:if>
-	<c:if test="${empty jahac }">fak</c:if>
+	<c:if test="${!empty porukaUnosJahaca}">${porukaUnosJahaca}</c:if>
 	
 	<br>
 	<form action="/ergela/auth/index" method="get">

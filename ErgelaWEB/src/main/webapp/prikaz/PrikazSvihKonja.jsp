@@ -22,6 +22,9 @@
 				<security:authorize access="hasRole('JAHAC')">
 					<th>Omiljeni</th>
 				</security:authorize>
+				<security:authorize access="hasRole('ADMIN')">
+					<th>Promena nadimka</th>
+				</security:authorize>
 			</tr>
 			<c:forEach var="k" items="${sviKonji}">
 				<tr>
@@ -32,6 +35,9 @@
 					<td>${k.rasa.naziv}</td>
 					<security:authorize access="hasRole('JAHAC')">
 						<td><a href="/ergela/jahaci/dodajKonjaUOmiljene?idKonj=${k.idKonj}">Dodaj u omiljene</a></td>
+					</security:authorize>
+					<security:authorize access="hasRole('ADMIN')">
+						<td><a href="/ergela/admin/promeniNadimakKonju?idKonj=${k.idKonj}">Promeni nadimak</a></td>
 					</security:authorize>
 				</tr>
 			</c:forEach>

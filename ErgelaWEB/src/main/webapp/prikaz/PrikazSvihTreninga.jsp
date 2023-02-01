@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	<c:if test="${!empty treninzi}">
+	<c:if test="${!empty sviTreninzi}">
 		<table border="1">
 			<tr>
 				<th>Ime i prezime jahača</th>
@@ -22,7 +22,7 @@
 					<th>Obriši</th>
 				</security:authorize>
 			</tr>
-			<c:forEach var="t" items="${treninzi}">
+			<c:forEach var="t" items="${sviTreninzi}">
 				<tr>
 					<td>${t.jahac.ime} ${t.jahac.prezime}</td>
 					<td>${t.konj.nadimak}</td>
@@ -35,7 +35,8 @@
 			</c:forEach>
 		</table>
 	</c:if>
-	<c:if test="${empty treninzi }">fak</c:if>
+	
+	<c:if test="${!empty porukaSviTreninzi}">${porukaSviTreninzi}</c:if>
 	<c:if test="${!empty porukaTreningObrisan}">${porukaTreningObrisan}</c:if>
 	
 	<br>

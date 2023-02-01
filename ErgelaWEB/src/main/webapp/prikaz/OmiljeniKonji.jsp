@@ -20,6 +20,7 @@
 				<th>Pol</th>
 				<th>Datum rođenja</th>
 				<th>Rasa</th>
+				<th>Obriši</th>
 			</tr>
 			<c:forEach var="o" items="${omiljeni}">
 				<tr>
@@ -28,11 +29,14 @@
 					<td>${o.konj.pol}</td>
 					<td>${o.konj.datumRodjenja}</td>
 					<td>${o.konj.rasa.naziv}</td>
+					<td><a href="/ergela/jahaci/obrisiOmiljenogKonja?idOmiljeni=${o.idOmiljeni}">Obriši</a></td>
 				</tr>
 			</c:forEach>
 		</table>
 	</c:if>
+	
 	<c:if test="${!empty porukaPrikazOmiljeni}">${porukaPrikazOmiljeni}</c:if>
+	<c:if test="${!empty porukaOmiljeniKonjObrisan}">${porukaOmiljeniKonjObrisan}</c:if>
 	
 	<br>
 	<form action="/ergela/auth/index" method="get">

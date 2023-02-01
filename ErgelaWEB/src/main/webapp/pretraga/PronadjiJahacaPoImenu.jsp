@@ -12,16 +12,17 @@
 
 	<form action="/ergela/menadzeri/getJahacIme" method="get">
 		Unesite ime:
-		<input type="text" placeholder="Ime" name="ime"><br>
+		<input type="text" placeholder="Ime" name="ime" required><br>
 		Unesite prezime:
-		<input type="text" placeholder="Prezime" name="prezime"><br>
+		<input type="text" placeholder="Prezime" name="prezime" required><br>
 		<input type="submit" value="Prikazi">
 	</form>
 	
-	<c:if test="${!empty jahac}">
-		${jahac.ime} ${jahac.prezime}, ${jahac.datumRodjenja}
+	<c:if test="${!empty jahacIme}">
+		${jahacIme.ime} ${jahacIme.prezime}, ${jahacIme.datumRodjenja}
 	</c:if>
-	<c:if test="${empty jahac }">fak</c:if>
+	
+	<c:if test="${!empty porukaNijeNadjenJahac}">${porukaNijeNadjenJahac}</c:if>
 	
 	<br>
 	<form action="/ergela/auth/index" method="get">

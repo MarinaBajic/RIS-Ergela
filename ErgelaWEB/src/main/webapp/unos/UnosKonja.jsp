@@ -12,20 +12,20 @@
 
 	<form action="/ergela/admin/unesiKonja" method="post">
 		Unesite puno ime:
-		<input type="text" placeholder="Puno ime" name="punoIme"><br>
+		<input type="text" placeholder="Puno ime" name="punoIme" required><br>
 		
 		Unesite nadimak:
 		<input type="text" placeholder="Nadimak" name="nadimak"><br>
 		
 		Unesite pol(z,m):
-		<input type="text" placeholder="Pol" name="pol"><br>
+		<input type="text" placeholder="Pol" name="pol" required><br>
 		
 		Unesite datum rođenja:
-		<input type="date" name="datumRodjenja"><br>
+		<input type="date" name="datumRodjenja" required><br>
 		
-		<c:if test="${!empty rase}">
-			<select name="idRasa">
-				<c:forEach var="r" items="${rase}">
+		<c:if test="${!empty sveRase}">
+			<select name="idRasa" required>
+				<c:forEach var="r" items="${sveRase}">
 					<option value="${r.idRasa}">${r.naziv} - ${r.boja}</option>
 				</c:forEach>
 			</select>
@@ -34,11 +34,12 @@
 		<input type="submit" value="Sačuvaj">
 	</form>
 	
-	<c:if test="${!empty konj}">
+	<c:if test="${!empty konjUnos}">
 		Konj je uspesno sacuvan!<br>
-		${konj.punoIme}, ${konj.nadimak}
+		${konjUnos.punoIme}, ${konjUnos.nadimak}
 	</c:if>
-	<c:if test="${empty konj}">fak</c:if>
+	
+	<c:if test="${!empty porukaUnosKonja}">${porukaUnosKonja}</c:if>
 	
 	<br>
 	<form action="/ergela/auth/index" method="get">

@@ -14,11 +14,6 @@
 <body>
 
 	<c:url var="loginUrl" value="/login" />
-	<c:if test="${not empty param.error}">
-		<div class="alert alert-danger">
-			<p>Pogresni podaci.</p>
-		</div>
-	</c:if>
 	
 	<form action="${loginUrl}" method="post">
 		<table>

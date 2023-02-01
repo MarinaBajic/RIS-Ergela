@@ -12,14 +12,18 @@
 
 	<form action="/ergela/admin/generisiIzvestajTreninziZaJahaca" method="get">
 		Odaberite jahaca:
-		<select name="idJahac">
-			<c:forEach var="j" items="${jahaci}">
-				<option value="${j.idJahac}">${j.ime} ${j.prezime}</option>
-			</c:forEach>
-		</select>
-		<br>
-		<input type="submit" value="Izaberi">
+		<c:if test="${!empty sviJahaci}">
+			<select name="idJahac" required>
+				<c:forEach var="j" items="${sviJahaci}">
+					<option value="${j.idJahac}">${j.ime} ${j.prezime}</option>
+				</c:forEach>
+			</select>
+			<br>
+			<input type="submit" value="Izaberi">
+		</c:if>
 	</form>
+	
+	<c:if test="${!empty porukaIzvestaj}">${porukaIzvestaj}</c:if>
 	
 	<br>
 	<form action="/ergela/auth/index" method="get">

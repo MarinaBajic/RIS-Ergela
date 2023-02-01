@@ -12,16 +12,16 @@
 
 	<form action="/ergela/nereg/findKonjaNadimak" method="get">
 		Unesite nadimak konja:
-		<input type="text" placeholder="Nadimak" name="nadimak">
+		<input type="text" placeholder="Nadimak" name="nadimak" required>
 		<input type="submit" value="Prikazi">
 	</form>
 	
 	<c:if test="${!empty konjNadimak}">
-		${konjNadimak.punoIme}<br>
-		${konjNadimak.nadimak}<br>
-		${konjNadimak.pol}<br>
-		${konjNadimak.datumRodjenja}<br>
-		${konjNadimak.rasa.naziv}<br>
+		Puno ime:       ${konjNadimak.punoIme}<br>
+		Nadimak:        ${konjNadimak.nadimak}<br>
+		Pol:            ${konjNadimak.pol}<br>
+		Datum rodjenja: ${konjNadimak.datumRodjenja}<br>
+		Naziv rase:     ${konjNadimak.rasa.naziv}<br>
 	</c:if>
 	
 	<c:if test="${!empty porukaKonjNadimak}">${porukaKonjNadimak}</c:if>

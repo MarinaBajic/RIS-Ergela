@@ -30,17 +30,16 @@
 
 	<security:authorize access="isAuthenticated()">
 		<security:authorize access="hasRole('JAHAC')">
-			<a href="/ergela/jahaci/getJahacAndKonji">Unos treninga</a><br><br>
-			<a href="/ergela/jahaci/getMojiTreninzi">Prikaz treninga</a><br><br>
-			<a href="/ergela/jahaci/getOmiljeniKonji">Omiljeni konji</a><br><br>
+			<a href="/ergela/jahaci/getJahacAndKonji">Unos treninga</a><br>
+			<a href="/ergela/jahaci/getMojiTreninzi">Prikaz treninga</a><br>
+			<a href="/ergela/jahaci/getOmiljeniKonji">Omiljeni konji</a><br>
 		</security:authorize>
 
 		<security:authorize access="hasAnyRole('MENADZER', 'ADMIN')">
 			<a href="/ergela/menadzeri/getJahaciAndKonji">Unos treninga</a><br>
-			<a href="/ergela/menadzeri/getSviTreninzi">Prikaz svih treninga</a><br><br>
+			<a href="/ergela/menadzeri/getSviTreninzi">Prikaz svih treninga</a><br>
 			<a href="/ergela/menadzeri/getSviJahaci">Prikaz svih jahača</a><br>
-			<a href="/ergela/menadzeri/getSviKonji">Prikaz svih konja</a><br><br>
-			<a href="/ergela/menadzeri/pronadjiJahacaPoImenu">Pronadji jahaca po imenu i prezimenu</a><br><br>
+			<a href="/ergela/menadzeri/pronadjiJahacaPoImenu">Pronadji jahaca po imenu i prezimenu</a><br>
 			<a href="/ergela/menadzeri/pronadjiTrening">Pronadji trening po datumu, jahaču i konju</a><br><br>
 		</security:authorize>
 		
@@ -49,7 +48,7 @@
 			<a href="/ergela/admin/getSveRase">Unos konja</a><br>
 			<a href="/ergela/admin/unosRase">Unos rase</a><br>
 			<a href="/ergela/admin/unosTrenera">Unos trenera</a><br><br>
-			<a href="/ergela/admin/izvestajSviTreninzi">Generisi izvestaj o treninzima</a><br><br>
+			<a href="/ergela/admin/izvestajSviTreninzi">Generisi izvestaj o treninzima</a><br>
 			<a href="/ergela/admin/izvestajTreninziZaJahaca">Generisi izvestaj o treninzima za jahaca</a><br><br>
 		</security:authorize>
 			
