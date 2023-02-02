@@ -58,7 +58,7 @@
 	<main>
 		<div class="dobrodosli">
 			<security:authorize access="isAuthenticated()">
-				<h1>Dobrodošli&nbsp;</h1>
+				<h1>Dobro došla&nbsp;</h1>
 				<h1>
 					<security:authentication property="principal.username" />
 					!

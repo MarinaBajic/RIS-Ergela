@@ -48,13 +48,13 @@
     <fullyQualifiedTypeName name="model.ErgelaKorisnik"/>
     <fullyQualifiedTypeName name="com.example.demo.repository.ErgelaKorisnikRepository"/>
     <fullyQualifiedTypeName name="com.example.demo.controller.AdminKontroler"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="model.Omiljeni"/>
     <fullyQualifiedTypeName name="com.example.demo.repository.OmiljeniRepository"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.DeleteMapping"/>
     <fullyQualifiedTypeName name="java.security.Principal"/>
-    <fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
 </qualifiedTypeNameHistroy>

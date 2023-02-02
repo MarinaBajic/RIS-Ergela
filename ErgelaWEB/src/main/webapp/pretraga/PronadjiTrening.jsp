@@ -57,47 +57,49 @@
 	<main>
 		<h2>Pretraga treninga</h2>
 
-		<form action="/ergela/menadzeri/getTrening" method="get">
-			<div class="forma">
-				<div class="field">
-					<p>Unesite datum</p>
-					<input type="date" name="datum" required><br>
+		<div class="main-col">
+			<form action="/ergela/menadzeri/getTrening" method="get">
+				<div class="forma">
+					<div class="field">
+						<p>Unesite datum</p>
+						<input type="date" name="datum" required><br>
+					</div>
+					<div class="field">
+						<p>Ime i prezime jahača</p>
+						<input type="text" placeholder="Unesite ime" name="imePrezime" required><br>
+					</div>
+					<div class="field">
+						<p>Nadimak konja</p>
+						<input type="text" placeholder="Nadimak konja" name="nadimak" required><br>
+					</div>
+					
+					<input type="submit" value="Prikazi">
 				</div>
-				<div class="field">
-					<p>Ime i prezime jahača</p>
-					<input type="text" placeholder="Unesite ime" name="imePrezime" required><br>
-				</div>
-				<div class="field">
-					<p>Nadimak konja</p>
-					<input type="text" placeholder="Nadimak konja" name="nadimak" required><br>
-				</div>
-				
-				<input type="submit" value="Prikazi">
-			</div>
-		</form>
-		
-		<c:if test="${!empty treninziPretraga}">
-			<table>
-				<tr>
-					<th>Datum</th>
-					<th>Jahač</th>
-					<th>Konj</th>
-					<th>Vreme</th>
-				</tr>
-				<c:forEach var="t" items="${treninziPretraga}">
+			</form>
+			
+			<c:if test="${!empty treninziPretraga}">
+				<table>
 					<tr>
-						<td>${t.datum}</td>
-						<td>${t.jahac.ime} ${t.jahac.prezime}</td>
-						<td>${t.konj.nadimak}</td>
-						<td>${t.vreme}</td>
+						<th>Datum</th>
+						<th>Jahač</th>
+						<th>Konj</th>
+						<th>Vreme</th>
 					</tr>
-				</c:forEach>
-			</table>
-		</c:if>
-		
-		<c:if test="${!empty porukaPretragaTreninga}">
-			<p>${porukaPretragaTreninga}</p>
-		</c:if>
+					<c:forEach var="t" items="${treninziPretraga}">
+						<tr>
+							<td>${t.datum}</td>
+							<td>${t.jahac.ime} ${t.jahac.prezime}</td>
+							<td>${t.konj.nadimak}</td>
+							<td>${t.vreme}</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</c:if>
+			
+			<c:if test="${!empty porukaPretragaTreninga}">
+				<p>${porukaPretragaTreninga}</p>
+			</c:if>
+		</div>
 	</main>
 	
 	<div class="hero-img">
