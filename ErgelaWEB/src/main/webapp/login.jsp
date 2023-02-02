@@ -8,36 +8,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Login</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="<c:url value="/css/style.css" />"
+	type="text/css">
+	<title>Login</title>
 </head>
 <body>
 
-	<c:url var="loginUrl" value="/login" />
+	<header>
+		<img class="logo" src="<c:url value="/images/Logo.png" />/" alt="Logo">
 	
-	<form action="${loginUrl}" method="post">
-		<table>
-			<tr>
-				<td>Korisnicko ime</td>
-				<td><input type="text" name="korisnickoIme"
-					placeholder="Unesite korisnicko ime" required></td>
-			</tr>
-			<tr>
-				<td>Sifra</td>
-				<td><input type="password" name="lozinka"
-					placeholder="Unesite sifru" required></td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="Prijava"></td>
-			</tr>
-		</table><br/><br/>
-		Nemate nalog? <a href="/ergela/auth/registerUser">Registrujte se</a>
-	</form>
+		<nav>
+			<p>
+				<a href="/ergela/index.jsp">Početna</a>
+			</p>
+			<p>
+				<a href="/ergela/prikaz.jsp">Prikaz</a>
+			</p>
+			<p>
+				<a href="/ergela/pretraga.jsp">Pretraga</a>
+			</p>
 	
-	<br>
-	<form action="/ergela/auth/index" method="get">
-		<input type="submit" value="Nazad na pocetnu">
-	</form>
+			<security:authorize access="isAuthenticated()">
+				<p>
+					<a href="/ergela/unos.jsp">Unos</a>
+				</p>
+	
+				<security:authorize access="hasRole('ADMIN')">
+					<p>
+						<a href="/ergela/izvestaji.jsp">Izveštaji</a>
+					</p>
+				</security:authorize>
+			</security:authorize>
+		</nav>
+	
+		<div class="login">
+			<security:authorize access="isAnonymous()">
+				<form action="/ergela/auth/loginPage" method="get">
+					<input type="submit" value="Login">
+				</form>
+			</security:authorize>
+			<security:authorize access="isAuthenticated()">
+				<form action="/ergela/auth/logout" method="get">
+					<input type="submit" value="Logout">
+				</form>
+			</security:authorize>
+		</div>
+	</header>
+
+	<main>
+		<h2>Login</h2>
+
+		<c:url var="loginUrl" value="/login" />
+		<form action="${loginUrl}" method="post">
+			<div class="forma">
+				<div class="field">
+					<p>Korisničko ime</p>
+					<input type="text" name="korisnickoIme" placeholder="Unesite korisnicko ime" required>
+				</div>
+				<div class="field">
+					<p>Šifra</p>
+					<input type="password" name="lozinka" placeholder="Unesite sifru" required>
+				</div>
+				<input type="submit" value="Prijava">
+				<p>Nemate nalog? <a href="/ergela/auth/registerUser">Registrujte se</a></p>
+			</div>
+		</form>
+	</main>
+
+	<div class="hero-img">
+		<div class="hero-img-overlay"></div>
+	</div>
 
 </body>
 </html>

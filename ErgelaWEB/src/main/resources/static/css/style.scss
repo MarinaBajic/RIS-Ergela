@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Lexend+Deca&display=swap');
+
+$primary: #00BF9A;
+$secondary: #006970;
+$tertiary: #002b2e;
+
+$overlay: #000606a7;
+
+$bg: rgba(255, 255, 255, 0.749);
+$dark-font: rgb(30, 30, 30);
+$light-font: rgb(242, 242, 242);
+
+$page-padding: 4em;
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Lexend Deca', sans-serif;
+    color: $dark-font;
+    background: $light-font;
+    font-size: 16px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .logo {
+        height: 1.8em;
+        padding: 2em $page-padding;
+    }
+
+    nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 2em $page-padding;
+           
+        p {
+            a {
+                color: $light-font;
+                text-decoration: none;
+                padding: 0px 1.5em;
+        
+                &:hover {
+                    border-bottom: 2.5px solid $light-font;
+                }
+            }
+        }
+    }
+
+    .login {
+        padding: 2em $page-padding;
+    }
+}
+
+input[type=submit] {
+    font-family: 'Lexend Deca', sans-serif;
+    color: $light-font;
+    background-color: $secondary;
+    padding: 0.8em 2em;
+    border-radius: 4em;
+    border: 2px solid $secondary;
+
+    &:hover {
+        background-color: transparent;
+        border: 2px solid $secondary;
+        color: $secondary;
+        cursor: pointer;
+    }
+}
+
+main {
+    text-align: center;
+    height: 80vh;
+    color: $light-font;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3em;
+
+    .main-col {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        gap: 4em;
+    }
+
+    .dobrodosli {
+        text-align: left;
+
+        h1 {
+            font-size: 4em;
+            display: inline-block;
+        }
+    
+        h3 {
+            font-size: 1.5rem;
+        }
+    }
+
+    h2 {
+        color: $light-font;
+        font-size: 3em;
+        border-bottom: 0.1em solid $light-font;
+    }
+
+    .cards {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1em;
+        margin: 2em 2em;
+        
+        .card {
+            padding: 1.5em 3em;
+            background-color: $bg;
+            border-radius: 1.5em;
+            font-weight: normal;
+            
+            &:hover {
+                background-color: $primary;
+            }
+
+            a {
+                color: $dark-font;
+                font-size: 1.7em;
+                text-decoration: none;
+
+                &:hover {
+                    color: $light-font;
+                }
+            }
+        }
+    }
+
+    .forma {
+        background-color: $bg;
+        border-radius: 1.5em;
+        padding: 2em 4em;
+
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+
+        .field {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4em;
+
+            input {
+                padding: 0.5em 1em;
+                border-radius: 0.5em;
+                border: 2px solid $secondary;
+                background-color: $bg;
+            }
+
+            select {
+                padding: 0.5em 1em;
+                border-radius: 0.5em;
+                border: 2px solid $secondary;
+                background-color: $bg;
+            }
+        }
+
+        p {
+            text-align: left;
+            color: $dark-font;
+            font-size: 0.9em;
+            font-weight: normal;
+
+            a {
+                color: $secondary;
+
+                &:hover {
+                    color: $primary;
+                }
+            }
+        }
+    }
+
+    .register {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+
+        .reg-row {
+            display: flex;
+            flex-direction: row;
+            gap: 2em;
+
+            input[type=submit] {
+                width: 100%;
+            }
+        }
+
+        .reg-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+    }
+
+    table {
+        border: 2px solid $tertiary;
+        border-collapse: collapse;
+        background-color: $bg;
+        color: $dark-font;
+
+        td, th {
+            border: 2px solid $tertiary;
+            padding: 1em;
+            font-weight: normal;
+        }
+
+        th {
+            background-color: $secondary;
+            color: $light-font;
+            font-weight: bold;
+        }
+    }
+
+    .pretraga {
+        text-align: left;
+    }
+}
+
+.hero-img {
+    position: absolute;
+    z-index: -1;
+    background-image: url(../images/Naslovna.jpg);
+    background-position: center;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    
+    .hero-img-overlay {
+        background-color: $overlay;
+        width: inherit;
+        height: inherit;
+    }
+}

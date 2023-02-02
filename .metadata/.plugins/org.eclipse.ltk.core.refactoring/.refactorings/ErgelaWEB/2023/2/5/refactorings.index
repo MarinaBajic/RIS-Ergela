@@ -1,0 +1,6 @@
+1675261792812	Move 'error.jsp' to 'webapp'
+1675269739216	Rename local variable 'konj'
+1675286905766	Move 'css' to 'resources'
+1675286987574	Move 'css' to 'static'
+1675287242037	Move 'images' to 'static'
+1675301382190	Delete element

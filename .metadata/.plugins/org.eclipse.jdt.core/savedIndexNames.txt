@@ -3,7 +3,6 @@ INDEX VERSION 1.131+D:\Faks\3 godina\5 semestar\Razvoj informacionih sistema\PRO
 1892731827.index
 3034091452.index
 2237073751.index
-1560456960.index
 1125185330.index
 1007240334.index
 544145448.index

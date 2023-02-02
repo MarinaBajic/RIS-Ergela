@@ -1,48 +1,101 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Pretraga konja po rasi</title>
+	<meta charset="UTF-8">
+	<title>Pretraga konja po rasi</title>
+	<link rel="stylesheet" href="<c:url value="/css/style.css" />"
+	type="text/css">
 </head>
 <body>
 
-	<form action="/ergela/nereg/findKonjeRasa" method="get">
-		Unesite rasu:
-		<input type="text" placeholder="Rasa" name="nazivRase" required>
-		<input type="submit" value="Prikazi">
-	</form>
+	<header>
+		<img class="logo" src="<c:url value="/images/Logo.png" />/" alt="Logo">
 	
-	<c:if test="${!empty konjiRasa}">
-		<table border="1">
-			<tr>
-				<th>Puno ime</th>
-				<th>Nadimak</th>
-				<th>Pol</th>
-				<th>Datum rođenja</th>
-				<th>Rasa</th>
-			</tr>
-			<c:forEach var="k" items="${konjiRasa}">
+		<nav>
+			<p>
+				<a href="/ergela/index.jsp">Početna</a>
+			</p>
+			<p>
+				<a href="/ergela/prikaz.jsp">Prikaz</a>
+			</p>
+			<p>
+				<a href="/ergela/pretraga.jsp">Pretraga</a>
+			</p>
+	
+			<security:authorize access="isAuthenticated()">
+				<p>
+					<a href="/ergela/unos.jsp">Unos</a>
+				</p>
+	
+				<security:authorize access="hasRole('ADMIN')">
+					<p>
+						<a href="/ergela/izvestaji.jsp">Izveštaji</a>
+					</p>
+				</security:authorize>
+			</security:authorize>
+		</nav>
+	
+		<div class="login">
+			<security:authorize access="isAnonymous()">
+				<form action="/ergela/auth/loginPage" method="get">
+					<input type="submit" value="Login">
+				</form>
+			</security:authorize>
+			<security:authorize access="isAuthenticated()">
+				<form action="/ergela/auth/logout" method="get">
+					<input type="submit" value="Logout">
+				</form>
+			</security:authorize>
+		</div>
+	</header>
+
+	<main>
+		<h2>Pretraga konja</h2>
+
+		<form action="/ergela/nereg/findKonjeRasa" method="get">
+			<div class="forma">
+				<div class="field">
+					<p>Unesite rasu</p>
+					<input type="text" placeholder="Rasa" name="nazivRase" required>
+				</div>
+				<input type="submit" value="Prikazi">
+			</div>
+		</form>
+		
+		<c:if test="${!empty konjiRasa}">
+			<table>
 				<tr>
-					<td>${k.punoIme}</td>
-					<td>${k.nadimak}</td>
-					<td>${k.pol}</td>
-					<td>${k.datumRodjenja}</td>
-					<td>${k.rasa.naziv}</td>
+					<th>Puno ime</th>
+					<th>Nadimak</th>
+					<th>Pol</th>
+					<th>Datum rođenja</th>
+					<th>Rasa</th>
 				</tr>
-			</c:forEach>
-		</table>
-	</c:if>
+				<c:forEach var="k" items="${konjiRasa}">
+					<tr>
+						<td>${k.punoIme}</td>
+						<td>${k.nadimak}</td>
+						<td>${k.pol}</td>
+						<td>${k.datumRodjenja}</td>
+						<td>${k.rasa.naziv}</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</c:if>
+		
+		<c:if test="${!empty porukaKonjiRasa}">
+			<p>${porukaKonjiRasa}</p>
+		</c:if>
+	</main>
 	
-	<c:if test="${!empty porukaKonjiRasa}">${porukaKonjiRasa}</c:if>
-	
-	<br>
-	<form action="/ergela/auth/index" method="get">
-		<input type="submit" value="Nazad na pocetnu">
-	</form>
+	<div class="hero-img">
+		<div class="hero-img-overlay"></div>
+	</div>
 
 </body>
 </html>

@@ -47,18 +47,6 @@ public class MenadzerKontroler {
 		return "prikaz/PrikazSvihJahaca";
 	}
 	
-	@GetMapping("/getSviTreninzi")
-	public String getSviTreninzi(HttpServletRequest request) {
-		List<Trening> treninzi = treningRepo.findAll();
-		
-		if (treninzi == null || treninzi.isEmpty())
-			request.setAttribute("porukaSviTreninzi", "Nema treninga za prikaz!");
-		else
-			request.setAttribute("sviTreninzi", treninzi);
-		
-		return "prikaz/PrikazSvihTreninga";
-	}
-	
 	@GetMapping("/pronadjiJahacaPoImenu")
 	public String pronadjiJahacaPoImenu() {
 		return "pretraga/PronadjiJahacaPoImenu";
@@ -131,9 +119,9 @@ public class MenadzerKontroler {
 		
 		String porukaTreningObrisan = "";
 		if (treningRepo.findById(idTrening).isEmpty())
-			porukaTreningObrisan = "Trening je uspesno obrisan";
+			porukaTreningObrisan = "Trening je uspešno obrisan";
 		else
-			porukaTreningObrisan = "Greska tokom brisanja treninga!";
+			porukaTreningObrisan = "Greška tokom brisanja treninga!";
 	
 		request.setAttribute("porukaTreningObrisan", porukaTreningObrisan);
 		
@@ -143,7 +131,7 @@ public class MenadzerKontroler {
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setLenient(true);
+		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 }

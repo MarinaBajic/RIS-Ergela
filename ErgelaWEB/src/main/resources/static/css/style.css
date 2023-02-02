@@ -1,0 +1,207 @@
+@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Lexend+Deca&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Lexend Deca", sans-serif;
+  color: rgb(30, 30, 30);
+  background: rgb(242, 242, 242);
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+header .logo {
+  height: 1.8em;
+  padding: 2em 4em;
+}
+header nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2em 4em;
+}
+header nav p a {
+  color: rgb(242, 242, 242);
+  text-decoration: none;
+  padding: 0px 1.5em;
+}
+header nav p a:hover {
+  border-bottom: 2.5px solid rgb(242, 242, 242);
+}
+header .login {
+  padding: 2em 4em;
+}
+
+input[type=submit] {
+  font-family: "Lexend Deca", sans-serif;
+  color: rgb(242, 242, 242);
+  background-color: #006970;
+  padding: 0.8em 2em;
+  border-radius: 4em;
+  border: 2px solid #006970;
+}
+input[type=submit]:hover {
+  background-color: transparent;
+  border: 2px solid #006970;
+  color: #006970;
+  cursor: pointer;
+}
+
+main {
+  text-align: center;
+  height: 80vh;
+  color: rgb(242, 242, 242);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 3em;
+}
+main .main-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 4em;
+}
+main .dobrodosli {
+  text-align: left;
+}
+main .dobrodosli h1 {
+  font-size: 4em;
+  display: inline-block;
+}
+main .dobrodosli h3 {
+  font-size: 1.5rem;
+}
+main h2 {
+  color: rgb(242, 242, 242);
+  font-size: 3em;
+  border-bottom: 0.1em solid rgb(242, 242, 242);
+}
+main .cards {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1em;
+  margin: 2em 2em;
+}
+main .cards .card {
+  padding: 1.5em 3em;
+  background-color: rgba(255, 255, 255, 0.749);
+  border-radius: 1.5em;
+  font-weight: normal;
+}
+main .cards .card:hover {
+  background-color: #00BF9A;
+}
+main .cards .card a {
+  color: rgb(30, 30, 30);
+  font-size: 1.7em;
+  text-decoration: none;
+}
+main .cards .card a:hover {
+  color: rgb(242, 242, 242);
+}
+main .forma {
+  background-color: rgba(255, 255, 255, 0.749);
+  border-radius: 1.5em;
+  padding: 2em 4em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+main .forma .field {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+}
+main .forma .field input {
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  border: 2px solid #006970;
+  background-color: rgba(255, 255, 255, 0.749);
+}
+main .forma .field select {
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  border: 2px solid #006970;
+  background-color: rgba(255, 255, 255, 0.749);
+}
+main .forma p {
+  text-align: left;
+  color: rgb(30, 30, 30);
+  font-size: 0.9em;
+  font-weight: normal;
+}
+main .forma p a {
+  color: #006970;
+}
+main .forma p a:hover {
+  color: #00BF9A;
+}
+main .register {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+main .register .reg-row {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+}
+main .register .reg-row input[type=submit] {
+  width: 100%;
+}
+main .register .reg-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+main table {
+  border: 2px solid #002b2e;
+  border-collapse: collapse;
+  background-color: rgba(255, 255, 255, 0.749);
+  color: rgb(30, 30, 30);
+}
+main table td, main table th {
+  border: 2px solid #002b2e;
+  padding: 1em;
+  font-weight: normal;
+}
+main table th {
+  background-color: #006970;
+  color: rgb(242, 242, 242);
+  font-weight: bold;
+}
+main .pretraga {
+  text-align: left;
+}
+
+.hero-img {
+  position: absolute;
+  z-index: -1;
+  background-image: url(../images/Naslovna.jpg);
+  background-position: center;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+.hero-img .hero-img-overlay {
+  background-color: rgba(0, 6, 6, 0.6549019608);
+  width: inherit;
+  height: inherit;
+}/*# sourceMappingURL=style.css.map */

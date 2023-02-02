@@ -7,53 +7,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Home page</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="<c:url value="/css/style.css" />"
+	type="text/css">
+	<title>Home page</title>
 </head>
 <body>
 
-	<security:authorize access="isAuthenticated()">
-		Dobrodosli
-		<security:authentication property="principal.username" />
-	</security:authorize>
+	<header>
+		<img class="logo" src="<c:url value="/images/Logo.png" />/" alt="Logo">
+
+		<nav>
+			<p>
+				<a href="/ergela/index.jsp">Početna</a>
+			</p>
+			<p>
+				<a href="/ergela/prikaz.jsp">Prikaz</a>
+			</p>
+			<p>
+				<a href="/ergela/pretraga.jsp">Pretraga</a>
+			</p>
+
+			<security:authorize access="isAuthenticated()">
+				<p>
+					<a href="/ergela/unos.jsp">Unos</a>
+				</p>
+
+				<security:authorize access="hasRole('ADMIN')">
+					<p>
+						<a href="/ergela/izvestaji.jsp">Izveštaji</a>
+					</p>
+				</security:authorize>
+			</security:authorize>
+		</nav>
+
+		<div class="login">
+			<security:authorize access="isAnonymous()">
+				<form action="/ergela/auth/loginPage" method="get">
+					<input type="submit" value="Login">
+				</form>
+			</security:authorize>
+			<security:authorize access="isAuthenticated()">
+				<form action="/ergela/auth/logout" method="get">
+					<input type="submit" value="Logout">
+				</form>
+			</security:authorize>
+		</div>
+	</header>
+
+	<main>
+		<div class="dobrodosli">
+			<security:authorize access="isAuthenticated()">
+				<h1>Dobrodošli&nbsp;</h1>
+				<h1>
+					<security:authentication property="principal.username" />
+					!
+				</h1>
+			</security:authorize>
+
+			<security:authorize access="isAnonymous()">
+				<h1>Dobrodošli na portal ergele.</h1>
+				<h3>Kako biste nastavili sa radom, molimo prijavite se.</h3>
+			</security:authorize>
+		</div>
+	</main>
+
+	<div class="hero-img">
+		<div class="hero-img-overlay"></div>
+	</div>
 	
-	<security:authorize access="isAnonymous()">
-		Dobrodosli na portal ergele. <br/><br/>
-		Kako biste nastavili sa radom, molimo prijavite se klikom na
-		<a href="/ergela/auth/loginPage">Link</a>
-	</security:authorize>
-	<br><br>
-	
-	<a href="/ergela/nereg/getSviKonji">Prikaz svih konja</a><br>
-	<a href="/ergela/nereg/pronadjiKonjaNadimak">Pronadji konja po nadimku</a><br>
-	<a href="/ergela/nereg/pronadjiKonjeRasa">Pronadji konje po rasi</a><br><br>
-
-	<security:authorize access="isAuthenticated()">
-		<security:authorize access="hasRole('JAHAC')">
-			<a href="/ergela/jahaci/getJahacAndKonji">Unos treninga</a><br>
-			<a href="/ergela/jahaci/getMojiTreninzi">Prikaz treninga</a><br>
-			<a href="/ergela/jahaci/getOmiljeniKonji">Omiljeni konji</a><br>
-		</security:authorize>
-
-		<security:authorize access="hasAnyRole('MENADZER', 'ADMIN')">
-			<a href="/ergela/menadzeri/getJahaciAndKonji">Unos treninga</a><br>
-			<a href="/ergela/menadzeri/getSviTreninzi">Prikaz svih treninga</a><br>
-			<a href="/ergela/menadzeri/getSviJahaci">Prikaz svih jahača</a><br>
-			<a href="/ergela/menadzeri/pronadjiJahacaPoImenu">Pronadji jahaca po imenu i prezimenu</a><br>
-			<a href="/ergela/menadzeri/pronadjiTrening">Pronadji trening po datumu, jahaču i konju</a><br><br>
-		</security:authorize>
-		
-		<security:authorize access="hasRole('ADMIN')">
-			<a href="/ergela/admin/getSviTreneri">Unos jahaca</a><br>
-			<a href="/ergela/admin/getSveRase">Unos konja</a><br>
-			<a href="/ergela/admin/unosRase">Unos rase</a><br>
-			<a href="/ergela/admin/unosTrenera">Unos trenera</a><br><br>
-			<a href="/ergela/admin/izvestajSviTreninzi">Generisi izvestaj o treninzima</a><br>
-			<a href="/ergela/admin/izvestajTreninziZaJahaca">Generisi izvestaj o treninzima za jahaca</a><br><br>
-		</security:authorize>
-			
-		<a href="/ergela/auth/logout">Logout</a><br><br>
-	</security:authorize>
-
 </body>
 </html>

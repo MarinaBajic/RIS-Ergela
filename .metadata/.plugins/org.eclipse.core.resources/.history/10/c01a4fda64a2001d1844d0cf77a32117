@@ -1,0 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Prikaz entiteta</title>
+</head>
+<body>
+
+	<a href="/ergela/nereg/getSviKonji">Konji</a><br>
+	
+	<security:authorize access="hasRole('JAHAC')">
+			<a href="/ergela/jahaci/getMojiTreninzi">Moji treninzi</a><br>
+			<a href="/ergela/jahaci/getOmiljeniKonji">Omiljeni konji</a><br>
+		</security:authorize>
+
+		<security:authorize access="hasAnyRole('MENADZER', 'ADMIN')">
+			<a href="/ergela/menadzeri/getSviTreninzi">Treninzi</a><br>
+			<a href="/ergela/menadzeri/getSviJahaci">Prikaz svih jahača</a><br>
+			<a href="/ergela/menadzeri/pronadjiJahacaPoImenu">Pronadji jahaca po imenu i prezimenu</a><br>
+			<a href="/ergela/menadzeri/pronadjiTrening">Pronadji trening po datumu, jahaču i konju</a><br><br>
+		</security:authorize>
+		
+</body>
+</html>
