@@ -15,46 +15,7 @@
 </head>
 <body>
 
-	<header>
-		<img class="logo" src="<c:url value="/images/Logo.png" />/" alt="Logo">
-	
-		<nav>
-			<p>
-				<a href="/ergela/index.jsp">Početna</a>
-			</p>
-			<p>
-				<a href="/ergela/prikaz.jsp">Prikaz</a>
-			</p>
-			<p>
-				<a href="/ergela/pretraga.jsp">Pretraga</a>
-			</p>
-	
-			<security:authorize access="isAuthenticated()">
-				<p>
-					<a href="/ergela/unos.jsp">Unos</a>
-				</p>
-	
-				<security:authorize access="hasRole('ADMIN')">
-					<p>
-						<a href="/ergela/izvestaji.jsp">Izveštaji</a>
-					</p>
-				</security:authorize>
-			</security:authorize>
-		</nav>
-	
-		<div class="login">
-			<security:authorize access="isAnonymous()">
-				<form action="/ergela/auth/loginPage" method="get">
-					<input type="submit" value="Login">
-				</form>
-			</security:authorize>
-			<security:authorize access="isAuthenticated()">
-				<form action="/ergela/auth/logout" method="get">
-					<input type="submit" value="Logout">
-				</form>
-			</security:authorize>
-		</div>
-	</header>
+	<%@ include file="header-footer/header.jsp" %>
 
 	<main>
 		<h2>Login</h2>
@@ -76,9 +37,7 @@
 		</form>
 	</main>
 
-	<div class="hero-img">
-		<div class="hero-img-overlay"></div>
-	</div>
+	<%@ include file="header-footer/bg.jsp" %>
 
 </body>
 </html>

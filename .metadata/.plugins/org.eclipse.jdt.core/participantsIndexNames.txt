@@ -13,3 +13,5 @@ D:\Faks\3 godina\5 semestar\Razvoj informacionih sistema\PROJEKAT\Java\.metadata
 \ErgelaWEB\src\main\java
 D:\Faks\3 godina\5 semestar\Razvoj informacionih sistema\PROJEKAT\Java\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\893867816.index
 \ErgelaWEB\src\main\java
+D:\Faks\3 godina\5 semestar\Razvoj informacionih sistema\PROJEKAT\Java\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\935763021.index
+\ErgelaWEB\src\main\java

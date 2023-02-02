@@ -115,7 +115,7 @@ public class JahacKontroler {
 		if (treninzi == null || treninzi.isEmpty())
 			request.setAttribute("porukaSviTreninzi", "Nema treninga za prikaz!");
 		else
-			request.getSession().setAttribute("sviTreninzi", treninzi);
+			request.setAttribute("sviTreninzi", treninzi);
 		
 		return "prikaz/PrikazSvihTreninga";
 	}
